@@ -1,0 +1,6 @@
+.idea
+node_modules
+known_versions
+latest_release
+latest_snapshot
+config
