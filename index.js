@@ -19,7 +19,7 @@ const client = new Twitter({
 
 const get_date = function() {
     const d = new Date();
-    return d.getUTCDate() + "-" + (d.getUTCMonth() + 1) + "-" + d.getUTCFullYear() + " " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":"+ d.getUTCSeconds();
+    return ( d.getUTCDate() < 10 ? '0' : '') + d.getUTCDate() + "-" + ((d.getUTCMonth() + 1) < 10 ? '0' : '') + (d.getUTCMonth() + 1) + "-" + d.getUTCFullYear() + " " + ( d.getUTCHours() < 10 ? '0' : '') + d.getUTCHours() + ":" + ( d.getUTCMinutes() < 10 ? '0' : '') + d.getUTCMinutes() + ":" + ( d.getUTCSeconds() < 10 ? '0' : '') + d.getUTCSeconds();
 };
 
 const check_versions = function(callback) {
