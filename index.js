@@ -69,7 +69,7 @@ const check_versions = function(callback) {
 
                 // Update bio to state last check time
 
-                client.post('account/update_profile', {description: bio + 'Last Checked: ' + get_date()});
+                client.post('account/update_profile', {description: bio + ' Last Checked: ' + get_date()});
 
             } else {
                 callback(data);
