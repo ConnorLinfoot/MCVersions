@@ -36,22 +36,6 @@ const check_versions = function(callback) {
                 console.log('Latest Snapshot: ' + data.latest.snapshot);
                 console.log('Latest Release: ' + data.latest.release);
 
-                if( data.latest.snapshot !== latest_snapshot ) {
-                    client.post('statuses/update', {status: 'Latest Snapshot Updated: ' + data.latest.snapshot}, function(error, tweet, response) {
-                        if( error ) return;
-                        fs.writeFileSync('./latest_snapshot', data.latest.snapshot);
-                        latest_snapshot = data.latest.snapshot;
-                    });
-                }
-
-                if( data.latest.release !== latest_release ) {
-                    client.post('statuses/update', {status: 'Latest Release Updated: ' + data.latest.release}, function(error, tweet, response) {
-                        if( error ) return;
-                        fs.writeFileSync('./latest_release', data.latest.release);
-                        latest_release = data.latest.release;
-                    });
-                }
-
                 // known_versions.shift();
                 for( let version of data.versions ) {
                     if( known_versions.indexOf(version.id) === -1 ) {
@@ -64,6 +48,22 @@ const check_versions = function(callback) {
                             known_versions_str += version.id + '\n';
                             fs.writeFileSync('./known_versions', known_versions_str);
                         });
+
+                        if( data.latest.snapshot !== latest_snapshot ) {
+                            client.post('statuses/update', {status: 'Latest Snapshot Updated: ' + data.latest.snapshot}, function(error, tweet, response) {
+                                if( error ) return;
+                                fs.writeFileSync('./latest_snapshot', data.latest.snapshot);
+                                latest_snapshot = data.latest.snapshot;
+                            });
+                        }
+
+                        if( data.latest.release !== latest_release ) {
+                            client.post('statuses/update', {status: 'Latest Release Updated: ' + data.latest.release}, function(error, tweet, response) {
+                                if( error ) return;
+                                fs.writeFileSync('./latest_release', data.latest.release);
+                                latest_release = data.latest.release;
+                            });
+                        }
                     }
                 }
 
