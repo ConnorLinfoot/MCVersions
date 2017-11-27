@@ -89,6 +89,7 @@ const check_versions = function(callback) {
 if( !fs.existsSync('./known_versions') || !fs.existsSync('./latest_snapshot') || !fs.existsSync('./latest_release') ) {
     // Init
     check_versions(function(data) {
+        if(true)return;
         if( !fs.existsSync('./known_versions') ) {
             let file_content = '';
             for( let version of data.versions ) {
