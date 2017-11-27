@@ -41,13 +41,11 @@ const check_versions = function(callback) {
                     if( known_versions.indexOf(version.id) === -1 ) {
                         console.log('New version detected: ' + version.id);
                         console.log(version);
-                        client.post('statuses/update', {status: 'Minecraft Version Registered: ' + version.id}, function(error, tweet, response) {
-                            if( error ) return;
-                            known_versions.push(version.id);
-                            let known_versions_str = fs.readFileSync('./known_versions').toString();
-                            known_versions_str += version.id + '\n';
-                            fs.writeFileSync('./known_versions', known_versions_str);
-                        });
+                        client.post('statuses/update', {status: 'Minecraft Version Registered: ' + version.id});
+                        known_versions.push(version.id);
+                        let known_versions_str = fs.readFileSync('./known_versions').toString();
+                        known_versions_str += version.id + '\n';
+                        fs.writeFileSync('./known_versions', known_versions_str);
 
                         if( data.latest.snapshot !== latest_snapshot ) {
                             let url = 'https://minecraft.net/en-us/article/minecraft-snapshot-' + data.latest.snapshot;
