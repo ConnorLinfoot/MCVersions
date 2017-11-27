@@ -50,10 +50,16 @@ const check_versions = function(callback) {
                         });
 
                         if( data.latest.snapshot !== latest_snapshot ) {
-                            client.post('statuses/update', {status: 'Latest Snapshot Updated: ' + data.latest.snapshot}, function(error, tweet, response) {
-                                if( error ) return;
-                                fs.writeFileSync('./latest_snapshot', data.latest.snapshot);
-                                latest_snapshot = data.latest.snapshot;
+                            let url = 'https://minecraft.net/en-us/article/minecraft-snapshot-' + data.latest.snapshot;
+                            request.get(url).on('response', function(res) {
+                                if( res.statusCode != 200 ) {
+                                    url = '';
+                                }
+                                client.post('statuses/update', {status: 'Latest Snapshot Updated: ' + data.latest.snapshot + ' ' + url}, function(error, tweet, response) {
+                                    if( error ) return;
+                                    fs.writeFileSync('./latest_snapshot', data.latest.snapshot);
+                                    latest_snapshot = data.latest.snapshot;
+                                });
                             });
                         }
 
