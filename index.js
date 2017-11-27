@@ -55,20 +55,16 @@ const check_versions = function(callback) {
                                 if( res.statusCode != 200 ) {
                                     url = '';
                                 }
-                                client.post('statuses/update', {status: 'Latest Snapshot Updated: ' + data.latest.snapshot + ' ' + url}, function(error, tweet, response) {
-                                    if( error ) return;
-                                    fs.writeFileSync('./latest_snapshot', data.latest.snapshot);
-                                    latest_snapshot = data.latest.snapshot;
-                                });
+                                client.post('statuses/update', {status: 'Latest Snapshot Updated: ' + data.latest.snapshot + ' ' + url});
                             });
+                            fs.writeFileSync('./latest_snapshot', data.latest.snapshot);
+                            latest_snapshot = data.latest.snapshot;
                         }
 
                         if( data.latest.release !== latest_release ) {
-                            client.post('statuses/update', {status: 'Latest Release Updated: ' + data.latest.release}, function(error, tweet, response) {
-                                if( error ) return;
-                                fs.writeFileSync('./latest_release', data.latest.release);
-                                latest_release = data.latest.release;
-                            });
+                            client.post('statuses/update', {status: 'Latest Release Updated: ' + data.latest.release});
+                            fs.writeFileSync('./latest_release', data.latest.release);
+                            latest_release = data.latest.release;
                         }
                     }
                 }
@@ -89,7 +85,6 @@ const check_versions = function(callback) {
 if( !fs.existsSync('./known_versions') || !fs.existsSync('./latest_snapshot') || !fs.existsSync('./latest_release') ) {
     // Init
     check_versions(function(data) {
-        if(true)return;
         if( !fs.existsSync('./known_versions') ) {
             let file_content = '';
             for( let version of data.versions ) {
