@@ -7,7 +7,7 @@ if( !fs.existsSync('./config') ) {
     process.exit(0);
 }
 const config = fs.readFileSync('./config').toString().split('\n');
-const check_interval = 30; // Time between checks in seconds
+const check_interval = 15; // Time between checks in seconds
 const bio = 'I\'m just a bot that will tweet when new Minecraft versions are detected! | My Creator @ConnorLinfoot';
 
 const client = new Twitter({
